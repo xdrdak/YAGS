@@ -1,0 +1,45 @@
+/* grid variables */
+$grid-columns: 12;
+$grid-gutter-width: 15px;
+
+/* flexbox grid */
+.col {
+  padding-right: $grid-gutter-width;
+  padding-left: $grid-gutter-width;
+}
+
+@define-mixin make-col $size, $columns: $grid-columns {
+  .col-$(size) {
+    flex: 0 0 calc(($size / $columns) * 100)%;
+    max-width: calc(($size / $columns) * 100)%;
+    composes: col;
+  }
+}
+
+@define-mixin make-percentile $size {
+  .col-w$(size) {
+    flex: 0 0 $size%;
+    max-width: $size%;
+    composes: col;
+  }
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-right: -$grid-gutter-width;
+  margin-left: -$grid-gutter-width;
+}
+
+.row * {
+  box-sizing: border-box;
+}
+
+@for $i from 1 to 12 {
+  @mixin make-col $i;
+}
+
+@for $i from 5 to 100 by 5 {
+  @mixin make-percentile $i;
+}

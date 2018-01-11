@@ -1,0 +1,53 @@
+{
+  "name": "yags",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "parcel src/index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "postcss-conditionals": "^2.1.0",
+    "postcss-cssnext": "^3.0.2",
+    "postcss-each": "^0.10.0",
+    "postcss-mixins": "^6.2.0",
+    "postcss-modules": "^1.1.0",
+    "postcss-nested": "^3.0.0",
+    "postcss-simple-vars": "^4.1.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^7.2.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "parcel-bundler": "^1.4.1",
+    "postcss-for": "^2.1.1"
+  },
+  "postcss": {
+    "modules": true,
+    "plugins": {
+      "postcss-conditionals": {},
+      "postcss-for": {},
+      "postcss-each": {},
+      "postcss-mixins": {},
+      "postcss-nested": {},
+      "postcss-simple-vars": {},
+      "postcss-cssnext": {
+        "browsers": [
+          ">1%",
+          "last 4 versions",
+          "Firefox ESR",
+          "not ie < 9"
+        ],
+        "flexbox": "no-2009",
+        "grid": true
+      }
+    }
+  }
+}
