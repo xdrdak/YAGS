@@ -1,21 +1,26 @@
-# yags
+# YAGS 
 
-> Quick CSS-Grids with flex fallback
+*WORK STILL IN PROGRESS. CODE IS ABSOLUTE GARBAGE*
 
-## Build Setup
+#### YET ANOTHER GRID SYSTEM
 
-``` bash
-# install dependencies
-npm install
+TODO:
+- [x] Make a todo list
+- [ ] CSS generation provided by app
+- [ ] SASS function to generate a grid with fallback
+- [ ] LESS function to generate a grid with fallback
+- [ ] Javascript function to create strings corresponding to grid with fallback
+- [x] ~CSS-Modules function to generate a grid with fallback~ a ha ha, hell no.
 
-# serve with hot reload at localhost:8080
+A small webapp to generate your own grid system based on css-grids with flexbox fallbacks!
+Just copy and paste into your own project!
+
+Or, maybe I'll make it so you can import the css/sass/less/function into your app!
+
+### Running the app locally
+
+It's as simple as...
+```sh
+npm i
 npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
