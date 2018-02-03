@@ -1,6 +1,21 @@
-# YAGS
-#### YET ANOTHER GRID SYSTEM
+# yags
 
-*WORK STILL IN PROGRESS. CODE IS STILL GARBAGE*
+> Quick CSS-Grids with flex fallback
 
-A React grid system based on css-grids with flexbox fallbacks.
+## Build Setup
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
+```
+
+For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
