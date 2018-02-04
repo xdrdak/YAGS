@@ -54,9 +54,10 @@
 </template>
 
 <script>
-import buildGrid from '@/style-generators/grid';
+import yas from '@/style-generators/css-in-js';
+import cssbeautify from 'cssbeautify';
 
-let stylesheet = null;
+yas.setup();
 
 export default {
   name: 'HelloWorld',
@@ -68,28 +69,56 @@ export default {
       displayCode: false,
     };
   },
+  computed: {
+    generateStyles() {
+      return ({
+        grid: {
+          display: 'flex',
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          marginRight: `-${this.gutterPx}px`,
+          marginLeft: `-${this.gutterPx}px`,
+        },
+        grid__item: {
+          boxSizing: 'border-box',
+          paddingRight: `${this.gutterPx}px`,
+          paddingLeft: `${this.gutterPx}px`,
+          flex: `0 0 calc(100% / ${this.columns})`,
+          maxWidth: `calc(100% / ${this.columns})`,
+          marginBottom: `${this.gutterPx}px`,
+        },
+        '@supports (display: grid)': {
+          grid: {
+            display: 'grid',
+            gridGap: `${this.gutterPx}px`,
+            gridTemplateColumns: `repeat(${this.columns}, 1fr)`,
+            marginRight: 'initial',
+            marginLeft: 'initial',
+          },
+          grid__item: {
+            paddingRight: 'initial',
+            paddingLeft: 'initial',
+            flex: 'initial',
+            maxWidth: 'initial',
+            marginBottom: 'initial',
+          },
+        },
+      });
+    },
+  },
   mounted() {
-    stylesheet = document.createElement('style');
-    stylesheet.innerHTML = `
-      ${buildGrid({ gutterPx: this.gutterPx, columns: this.columns })}
-    `;
-    // WebKit hack :(
-    document.head.appendChild(stylesheet);
-    // Add the <style> element to the page
-    stylesheet.appendChild(document.createTextNode(''));
-    document.getElementById('stylesheetOutput').innerHTML = stylesheet.innerHTML.trim();
+    const ss = yas.createStyleSheet(this.generateStyles).inject();
+    document.getElementById('stylesheetOutput').innerHTML = cssbeautify(ss);
   },
   updated() {
-    stylesheet.innerHTML = `
-      ${buildGrid({ gutterPx: this.gutterPx, columns: this.columns })}
-    `;
-    document.getElementById('stylesheetOutput').innerHTML = stylesheet.innerHTML.trim();
+    const ss = yas.createStyleSheet(this.generateStyles).inject();
+    document.getElementById('stylesheetOutput').innerHTML = cssbeautify(ss);
   },
   destroyed() {
-    // Need to cleanup our custom stylesheet
-    if (stylesheet) {
-      stylesheet.parentNode.removeChild(stylesheet);
-    }
+  // Need to cleanup our custom stylesheet
+  // if (stylesheet) {
+    // stylesheet.parentNode.removeChild(stylesheet);
+  // }
   },
 };
 </script>
