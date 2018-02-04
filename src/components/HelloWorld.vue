@@ -72,6 +72,11 @@ export default {
   computed: {
     generateStyles() {
       return ({
+        item: {
+          background: 'tomato',
+          padding: '20px',
+          textAlign: 'center',
+        },
         grid: {
           display: 'flex',
           flexDirection: 'row',
@@ -86,6 +91,13 @@ export default {
           flex: `0 0 calc(100% / ${this.columns})`,
           maxWidth: `calc(100% / ${this.columns})`,
           marginBottom: `${this.gutterPx}px`,
+          '&:hover .item': {
+            background: 'purple',
+          },
+          '&:nth-child(2)': {
+            background: 'pink',
+            border: '3px solid black',
+          },
         },
         '@supports (display: grid)': {
           grid: {
@@ -143,11 +155,5 @@ a {
 .container {
   max-width: 920px;
   margin: 0 auto;
-}
-
-.item {
-  background-color: #42b983;
-  padding: 20px;
-  text-align: center;
 }
 </style>
