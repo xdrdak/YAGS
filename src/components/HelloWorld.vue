@@ -1,95 +1,95 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li>
-        <a
-          href="https://vuejs.org"
-          target="_blank"
+    <div class="container">
+      <h2>Simple Grid - Equal Column Size</h2>
+      <form class="w-100">
+        <div class="measure">
+          <label for="name" class="f6 b db mb2">
+            Columns
+            <span class="normal black-60">(how many columns in a grid?)</span>
+          </label>
+          <select id="borderRadius" class="ba b--black-20 pa2 mb2 db w-100" v-model="columns">
+            <option :key="i" v-for="(_, i) in Array(12).fill(0)">{{i+1}}</option>
+          </select>
+        </div>
+        <div class="measure">
+          <label for="name" class="f6 b db mb2">
+            Gutter Size
+            <span class="normal black-60">(gap sizes in px)</span>
+          </label>
+          <input
+            class="ba b--black-20 pa2 mb2 db w-100"
+            type="number"
+            min="0"
+            max="100"
+            v-model="gutterPx"
+            placeholder="edit me"
+          >
+        </div>
+      </form>
+    </div>
+    <div class="container">
+      <div class="inspector-selector">
+        <label for="grid">Grid Sample</label>
+        <input type="radio" id="displayGrid" v-bind:value="false" v-model="displayCode">
+        <label for="code">Code Snippet</label>
+        <input type="radio" id="displayCode" v-bind:value="true" v-model="displayCode">
+      </div>
+      <div v-show="displayCode === false" class="grid">
+        <div
+          :key="index"
+          v-for="(item, index) in Array(totalGridItems).fill(0)"
+          class="grid__item"
         >
-          Core Docs
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://forum.vuejs.org"
-          target="_blank"
-        >
-          Forum
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://chat.vuejs.org"
-          target="_blank"
-        >
-          Community Chat
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/vuejs"
-          target="_blank"
-        >
-          Twitter
-        </a>
-      </li>
-      <br>
-      <li>
-        <a
-          href="http://vuejs-templates.github.io/webpack/"
-          target="_blank"
-        >
-          Docs for This Template
-        </a>
-      </li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li>
-        <a
-          href="http://router.vuejs.org/"
-          target="_blank"
-        >
-          vue-router
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vuex.vuejs.org/"
-          target="_blank"
-        >
-          vuex
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vue-loader.vuejs.org/"
-          target="_blank"
-        >
-          vue-loader
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-        >
-          awesome-vue
-        </a>
-      </li>
-    </ul>
+          <div class="item">
+            {{index + 1}}
+          </div>
+        </div>
+      </div>
+      <div v-show="displayCode === true" >
+        <pre id="stylesheetOutput" class="br3 bg-black-90 pa3 light-green"></pre>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import buildGrid from '@/style-generators/grid';
+
+let stylesheet = null;
+
 export default {
   name: 'HelloWorld',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
+      totalGridItems: 24,
+      columns: 3,
+      gutterPx: 15,
+      displayCode: false,
     };
+  },
+  mounted() {
+    stylesheet = document.createElement('style');
+    stylesheet.innerHTML = `
+      ${buildGrid({ gutterPx: this.gutterPx, columns: this.columns })}
+    `;
+    // WebKit hack :(
+    document.head.appendChild(stylesheet);
+    // Add the <style> element to the page
+    stylesheet.appendChild(document.createTextNode(''));
+    document.getElementById('stylesheetOutput').innerHTML = stylesheet.innerHTML.trim();
+  },
+  updated() {
+    stylesheet.innerHTML = `
+      ${buildGrid({ gutterPx: this.gutterPx, columns: this.columns })}
+    `;
+    document.getElementById('stylesheetOutput').innerHTML = stylesheet.innerHTML.trim();
+  },
+  destroyed() {
+    // Need to cleanup our custom stylesheet
+    if (stylesheet) {
+      stylesheet.parentNode.removeChild(stylesheet);
+    }
   },
 };
 </script>
@@ -109,5 +109,16 @@ li {
 }
 a {
   color: #42b983;
+}
+
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.item {
+  background-color: #42b983;
+  padding: 20px;
+  text-align: center;
 }
 </style>
