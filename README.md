@@ -33,6 +33,9 @@ or that there are less breakpoints? If the function is pretty much the same, you
 
 3. Don't ditch flexbox entirely. Sometimes, flexbox is still the valid solution! Right tool for the right job folks.
 
+#### Did you just implement a crappy css-in-js for this?
+Yeah.
+
 #### TODO
 
 - [x] Make a todo list
